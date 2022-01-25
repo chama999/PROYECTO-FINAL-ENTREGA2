@@ -1,0 +1,5 @@
+node_modules
+database/archivos/*.json
+database/mongodb
+database/sqlite
+public
