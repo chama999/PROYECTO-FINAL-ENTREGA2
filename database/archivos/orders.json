@@ -1,0 +1,16 @@
+[
+  {
+    "user_id": "pepito",
+    "id": 1,
+    "created_on": "2022-01-24T21:31:57.185Z",
+    "deleted": false,
+    "products": []
+  },
+  {
+    "user_id": "pepito2",
+    "id": 2,
+    "created_on": "2022-01-24T21:37:11.135Z",
+    "deleted": false,
+    "products": []
+  }
+]

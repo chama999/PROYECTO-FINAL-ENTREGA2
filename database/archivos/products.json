@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Cerveza Negra",
+    "description": "Cerveza Negra importada 333cc",
+    "price": 200,
+    "stock": 11111,
+    "thumbnail": "imagenCervezanegra.jpg",
+    "id": 1
+  },
+  {
+    "title": "Cerveza Negra",
+    "description": "Cerveza Negra importada 333cc",
+    "price": 200,
+    "stock": 1400,
+    "thumbnail": "imagenCervezanegra.jpg",
+    "id": 3
+  },
+  {
+    "title": "Cerveza Negra",
+    "description": "Cerveza Negra importada 333cc",
+    "price": 200,
+    "stock": 1400,
+    "thumbnail": "imagenCervezanegra.jpg",
+    "id": 4
+  }
+]

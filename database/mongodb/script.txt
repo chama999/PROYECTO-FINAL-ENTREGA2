@@ -1,0 +1,91 @@
+﻿//inicio mongodb indicando path
+mongod --dbpath "C:\Proyectos-Desarrollos\CoderHouse\Desafio Final\proyecto-final-2da-entrega\database\mongodb"
+//en otro cmd:
+mongo
+
+// muestra la bases
+show databases
+//db.adminCommand('listDatabases')
+
+// create db ecommerce y switchea
+use ecommerce
+
+// corroboro si estoy usando la base correspondiente.
+db
+
+// creo collection mensajes
+db.createCollection("orders")
+
+//creo collection productos
+db.createCollection("products")
+
+
+//Lo que sigue son EJEMPLOS:
+//Ejercicio 1 y 2
+    // inserto 10 mensajes.
+    db.mensajes.insert([{usuaro:"admin", mensaje: "Bienvenidos", timestamp: Date.now() },
+    {usuaro:"admin", mensaje: "al chat", timestamp: Date.now()},
+    {usuaro:"admin", mensaje: "Les agredacemos su participación", timestamp: Date.now()},
+    {usuaro:"pedro", mensaje: "hola", timestamp: Date.now()},
+    {usuaro:"juan", mensaje: "hola!!", timestamp: Date.now()},
+    {usuaro:"ramiro", mensaje: "hola a todos", timestamp: Date.now()},
+    {usuaro:"pedro", mensaje: "cómo están? ", timestamp: Date.now()},
+    {usuaro:"juan", mensaje: "muy bien", timestamp: Date.now()},
+    {usuaro:"ramiro", mensaje: "con covid", timestamp: Date.now()},
+    {usuaro:"celeste", mensaje: "holaaa", timestamp: Date.now()}
+    ])
+
+    //inserto 10 productos.
+    db.productos.insert([
+        {codProducto: "BEER1", nombre: "Cerveza Negra", descripcion: "Cerveza Negra", stock: 10, precio: 120},
+        {codProducto: "BEER2", nombre: "Cerveza Rubia", descripcion: "Cerveza Rubia", stock: 20, precio: 580},
+        {codProducto: "BEER3", nombre: "Cerveza Roja", descripcion: "Cerveza Roja", stock: 30, precio: 900},
+        {codProducto: "BEER4", nombre: "Cerveza Ipa", descripcion: "Cerveza Ipa", stock: 40, precio: 1240},
+        {codProducto: "BEER5", nombre: "Cerveza Doble Ipa", descripcion: "Cerveza Doble Ipa", stock: 50, precio: 1500},
+        {codProducto: "BEER6", nombre: "Cerveza Dubbel", descripcion: "Cerveza Dubbel", stock: 60, precio: 2000},
+        {codProducto: "BEER7", nombre: "Cerveza Trippel", descripcion: "Cerveza Trippel", stock: 70, precio: 2100},
+        {codProducto: "BEER8", nombre: "Cerveza AAA", descripcion: "Cerveza AAA", stock: 80, precio: 3160},
+        {codProducto: "BEER9", nombre: "Cerveza Amber Ale", descripcion: "Cerveza Amber Ale", stock: 90, precio: 4500},
+        {codProducto: "BEER10", nombre: "Cerveza Brown Ale", descripcion: "Cerveza Brown Ale", stock: 100, precio: 5000}
+    ])
+
+//Ejercicio 3
+    //obtengo los 10 mensajes insertados.
+    db.mensajes.find()
+    //consulto los productos:
+    db.productos.find()
+
+//Ejercicio 4: Contamos los mensajes y productos.
+    db.runCommand({ count: "orders"}) || db.mensajes.find().count()
+    db.runCommand({ count: "productos"}) ||  db.productos.find().count()
+
+
+//Ejercicio 5. 
+// 5.A) Agregamos 1 producto
+db.productos.insertOne(
+    {codProducto: "BEER10", nombre: "Cerveza lager", descripcion: "Cerveza lager", stock: 110, precio: 3850}
+    )
+
+// 5.B
+    // i: Productos precio menor 1000
+    db.productos.find({precio: {$lt: 1000}},{nombre: 1, _id: 0})
+    // ii: Productos precio entre 1000 y 3000
+    db.productos.find({precio: {$gte : 1000 , $lte : 3000}},{nombre: 1, _id: 0})
+    // iii: Productos precio mayor 3000
+    db.productos.find({precio: {$gt: 3000}},{nombre: 1, _id: 0})
+    // iv: Tercer producto más barato.
+    db.productos.find().skip(2).limit(1).sort({precio: 1})
+
+//5.C Agrego el campo Timestamp añadiendo una marca de tiempo a todos los productos.
+    // Aclaro que no lo hago con el campo stock porque ya fue añadido.
+
+    db.productos.updateMany({}, {$set: {timestamp: Date.now()}});
+
+//5.D Cambiar el stock a 0 de los productos de precio > 4000
+    db.productos.update({precio: {$gt: 4000}}, {$set:{stock: 0} }, {multi: true})
+
+//5.E eliminar los productos de precio menor a 1000
+    db.productos.deleteMany({precio: {$lt:1000}})
+
+//6: Crear usuario lectura:
+ db.createUser({ user: "pepe", pwd: "asd456", roles: ["readAnyDatabase"] });
