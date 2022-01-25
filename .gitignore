@@ -1,5 +1,5 @@
 node_modules
 database/archivos/*.json
-database/mongodb
-database/sqlite
+database/mongodb/*
+database/sqlite/*.sqlite
 public
